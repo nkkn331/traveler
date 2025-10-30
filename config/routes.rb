@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   #get 'users/index'
   #get 'users/show'
   devise_for :users
-  resources :users, only:[:index, :show]
+  resources :users, only:[:index, :show, :edit, :update] do
+    member do
+    get :follows, :followers
+  end
+  resource :relationships, only: [:create, :destroy]
+end
  # get 'posts/new'
  # post 'posts' => 'posts#create'
  resources :posts do
@@ -21,3 +26,5 @@ Rails.application.routes.draw do
   #get 'top' =>'homes#top'
   root :to => 'homes#top'
 end
+
+
