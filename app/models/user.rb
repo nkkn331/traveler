@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   attachment :profile_image
 
-   # ユーザーをフォローする
+  # ユーザーをフォローする
   def follow(user_id)
     follower.create(followed_id: user_id)
   end
