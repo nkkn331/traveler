@@ -6,12 +6,12 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-  　@post.user_id = current_user.id
-  　if @post.save
+    @post.user_id = current_user.id
+    if @post.save
     redirect_to post_path(@post.id)
-  　else
+    else
     render :new, status: :unprocessable_entity
-  　end
+    end
   end
 
    def index
