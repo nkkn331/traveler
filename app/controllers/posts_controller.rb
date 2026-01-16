@@ -24,6 +24,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.page(params[:page]).per(7).reverse_order
+    # ログインしている場合のみカウント
+    if user_signed_in?
+    # ユーザーがこの投稿を既に閲覧しているか確認し、なければ作成
+    unless Viewcount.exists?(user_id: current_user.id, post_id: @post.id)
+      Viewcount.create(user_id: current_user.id, post_id: @post.id)
+    end
+    end
   end
 
    def edit

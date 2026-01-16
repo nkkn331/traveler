@@ -18,7 +18,6 @@
       <p class="caption"><%= @post.user.name %></p>
       <%= attachment_image_tag @post, :image, format: 'jpeg', size: "450x350" %><br>
       <p class="caption"><%= @post.location %></p>
-      <p class="caption"><%= @post.location %>
       <% if @post.favorited_by?(current_user) %>
         <%= link_to post_favorites_path(@post),  data: { turbo_method: :delete }, class: "favorite_btn" do %>
           ♥<%= @post.favorites.count %> いいね
@@ -28,6 +27,8 @@
           ♡<%= @post.favorites.count %> いいね
         <% end %>
       <% end %>
+      &nbsp;&nbsp; 閲覧数：<%= @post.viewcounts.count %>
+      </p>
       <h2>感想</h2>
       <p id="text"><%= @post.text %></p>
     <% if @post.user == current_user %>
