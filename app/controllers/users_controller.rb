@@ -9,7 +9,32 @@ class UsersController < ApplicationController
      @following_users = @user.following_user
      @follower_users = @user.follower_user
     end
+  
+  #DM機能用の追記
+  # ログインしているユーザーと、表示されているユーザー（相手）のエントリーを取得
+     @currentUserEntry = Entry.where(user_id: current_user.id)
+     @userEntry = Entry.where(user_id: @user.id)
 
+    # 自分自身のページでない場合のみ実行
+    unless @user.id == current_user.id
+        @currentUserEntry.each do |cu|
+        @userEntry.each do |u|
+          # すでに共通のroom_idを持つエントリーが存在するか確認
+          if cu.room_id == u.room_id then
+            @isRoom = true
+            @roomId = cu.room_id
+          end
+        end
+      end
+
+      # 共通の部屋がまだない場合、新しく作成するためのインスタンスを用意
+      unless @isRoom
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
+    #ここまでがDM機能用の追記終了
+  
   def edit
     @user = User.find(params[:id])
   end

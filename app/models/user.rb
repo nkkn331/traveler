@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :following_user, through: :follower, source: :followed
   has_many :follower_user, through: :followed, source: :follower
   has_many :view_counts, dependent: :destroy 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
   attachment :profile_image
 
   validates :name, presence: true
@@ -30,4 +32,9 @@ class User < ApplicationRecord
   def following?(user)
     following_user.include?(user)
   end  
+  #相互フォロー判定
+  def is_followed_by?(user)
+  reverse_of_relationships.find_by(follower_id: user.id).present?
+  end
+
 end
