@@ -27,7 +27,7 @@
           ♡<%= @post.favorites.count %> いいね
         <% end %>
       <% end %>
-      &nbsp;&nbsp; 閲覧数：<%= @post.viewcounts.count %>
+      &nbsp;&nbsp; 閲覧数：<%= @post.viewcounts.count %> <%# viewで閲覧数を表示 %>
       </p>
       <h2>感想</h2>
       <p id="text"><%= @post.text %></p>

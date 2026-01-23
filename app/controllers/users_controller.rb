@@ -8,7 +8,7 @@ class UsersController < ApplicationController
      @posts = @user.posts.page(params[:page]).per(8).reverse_order
      @following_users = @user.following_user
      @follower_users = @user.follower_user
-    end
+    
   
   #DM機能用の追記
   # ログインしているユーザーと、表示されているユーザー（相手）のエントリーを取得
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       end
     end
     #ここまでがDM機能用の追記終了
-  
+  end
   def edit
     @user = User.find(params[:id])
   end
